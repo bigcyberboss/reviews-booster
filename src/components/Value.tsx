@@ -17,7 +17,7 @@ export function Value() {
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 animate-on-scroll">
-          <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl mb-4">
+          <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl mb-4 lg:whitespace-nowrap">
             {t.value.heading1}{" "}
             <span className="gradient-text">{t.value.headingHighlight}</span>
           </h2>
