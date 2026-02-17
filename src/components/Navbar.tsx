@@ -13,10 +13,15 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 20);
+
+      // Scroll progress
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(total > 0 ? (window.scrollY / total) * 100 : 0);
 
       // Active section detection
       const sections = NAV_LINKS.map((l) => l.href.slice(1));
@@ -85,6 +90,14 @@ export function Navbar() {
           <span className={`w-5 h-0.5 bg-text-primary transition-all duration-200 ${mobileOpen ? "opacity-0" : ""}`} />
           <span className={`w-5 h-0.5 bg-text-primary transition-all duration-200 ${mobileOpen ? "-rotate-45 -translate-y-[4px]" : ""}`} />
         </button>
+      </div>
+
+      {/* Scroll progress bar */}
+      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-transparent">
+        <div
+          className="h-full bg-gradient-to-r from-[var(--gradient-from)] via-[var(--gradient-via)] to-[var(--gradient-to)] transition-none"
+          style={{ width: `${scrollProgress}%` }}
+        />
       </div>
 
       {/* Mobile menu */}
