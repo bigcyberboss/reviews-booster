@@ -1,29 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import { useLang } from "./LangContext";
 
-const CHANNELS = [
-  {
-    icon: "&#9992;",
-    label: "Telegram",
-    value: "@username",
-    href: "https://t.me/username",
-  },
-  {
-    icon: "&#9993;",
-    label: "Email",
-    value: "reputation@yourdomain.com",
-    href: "mailto:reputation@yourdomain.com",
-  },
-  {
-    icon: "&#128172;",
-    label: "Discord",
-    value: "username#0000",
-    href: "#",
-  },
+const CHANNELS_DATA = [
+  { icon: "&#9992;", key: "telegram" as const, value: "@username", href: "https://t.me/username" },
+  { icon: "&#9993;", key: "email" as const, value: "reputation@yourdomain.com", href: "mailto:reputation@yourdomain.com" },
+  { icon: "&#128172;", key: "discord" as const, value: "username#0000", href: "#" },
 ];
 
 export function Contact() {
+  const { t } = useLang();
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -37,12 +24,11 @@ export function Contact() {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 animate-on-scroll">
           <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl mb-4">
-            Разберём ваш профиль{" "}
-            <span className="gradient-text">бесплатно</span>
+            {t.contact.heading1}{" "}
+            <span className="gradient-text">{t.contact.headingHighlight}</span>
           </h2>
           <p className="text-text-secondary text-lg">
-            Пришлите ссылку на Reviews.io, и мы посмотрим, что работает, где точки роста,
-            сколько отзывов нужно для топа. Если не пользуетесь, поможем настроить с нуля.
+            {t.contact.desc}
           </p>
         </div>
 
@@ -53,54 +39,54 @@ export function Contact() {
               <div className="text-center py-12">
                 <span className="text-5xl mb-4 block">&#10003;</span>
                 <h3 className="text-xl font-semibold text-text-primary mb-2">
-                  Заявка отправлена!
+                  {t.contact.successTitle}
                 </h3>
                 <p className="text-text-secondary">
-                  Мы свяжемся с вами в ближайшее время.
+                  {t.contact.successDesc}
                 </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                 <div>
                   <label htmlFor="name" className="text-sm text-text-secondary mb-1.5 block">
-                    Имя / Компания
+                    {t.contact.labelName}
                   </label>
                   <input
                     id="name"
                     type="text"
                     required
                     className="w-full px-4 py-3 rounded-xl bg-bg-hover/50 border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition-all"
-                    placeholder="Ваше имя или название компании"
+                    placeholder={t.contact.placeholderName}
                   />
                 </div>
 
                 <div>
                   <label htmlFor="link" className="text-sm text-text-secondary mb-1.5 block">
-                    Ссылка на Reviews.io
+                    {t.contact.labelLink}
                   </label>
                   <input
                     id="link"
                     type="url"
                     className="w-full px-4 py-3 rounded-xl bg-bg-hover/50 border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition-all"
-                    placeholder="https://www.reviews.io/company-reviews/..."
+                    placeholder={t.contact.placeholderLink}
                   />
                 </div>
 
                 <div>
                   <label htmlFor="messenger" className="text-sm text-text-secondary mb-1.5 block">
-                    Удобный мессенджер
+                    {t.contact.labelMessenger}
                   </label>
                   <input
                     id="messenger"
                     type="text"
                     required
                     className="w-full px-4 py-3 rounded-xl bg-bg-hover/50 border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition-all"
-                    placeholder="@telegram или другой"
+                    placeholder={t.contact.placeholderMessenger}
                   />
                 </div>
 
                 <button type="submit" className="glow-btn mt-2">
-                  Отправить заявку
+                  {t.contact.submit}
                 </button>
               </form>
             )}
@@ -109,15 +95,15 @@ export function Contact() {
           {/* Right side — channels + scarcity */}
           <div className="flex flex-col gap-6 animate-on-scroll justify-between">
             {/* Contact channels */}
-            {CHANNELS.map((ch) => (
+            {CHANNELS_DATA.map((ch) => (
               <a
-                key={ch.label}
+                key={ch.key}
                 href={ch.href}
                 className="glass-card p-5 flex items-center gap-4 group"
               >
                 <span className="text-2xl" dangerouslySetInnerHTML={{ __html: ch.icon }} />
                 <div>
-                  <div className="text-sm text-text-muted">{ch.label}</div>
+                  <div className="text-sm text-text-muted">{t.contact[ch.key]}</div>
                   <div className="text-text-primary font-medium group-hover:text-accent transition-colors">
                     {ch.value}
                   </div>
@@ -129,11 +115,12 @@ export function Contact() {
             <div className="glass-card p-6 border-accent/20">
               <div className="flex items-center gap-3 mb-3">
                 <span className="w-2.5 h-2.5 rounded-full bg-success" style={{ animation: "glow-pulse 2s ease-in-out infinite" }} />
-                <span className="text-sm font-semibold text-success">Открыт набор</span>
+                <span className="text-sm font-semibold text-success">{t.contact.slotsOpen}</span>
               </div>
               <p className="text-text-secondary">
-                Сейчас открыто <span className="text-text-primary font-semibold">6 слотов</span> на интеграцию.
-                Следующий набор через 2-3 месяца.
+                {t.contact.slotsText1}{" "}
+                <span className="text-text-primary font-semibold">{t.contact.slotsCount}</span>{" "}
+                {t.contact.slotsText2}
               </p>
             </div>
           </div>

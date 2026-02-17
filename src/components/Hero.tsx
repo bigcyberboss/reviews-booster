@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState, type MouseEvent } from "react";
+import { useLang } from "./LangContext";
 
 function AnimatedCounter({ target, duration = 2000 }: { target: number; duration?: number }) {
   const [value, setValue] = useState(0);
@@ -36,6 +37,7 @@ function AnimatedCounter({ target, duration = 2000 }: { target: number; duration
 }
 
 export function Hero() {
+  const { t } = useLang();
   const stampRef = useRef<HTMLDivElement>(null);
 
   const handleStampMove = (e: MouseEvent<HTMLDivElement>) => {
@@ -55,10 +57,7 @@ export function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-      {/* Grid background */}
       <div className="grid-bg" />
-
-      {/* Aurora background */}
       <div className="aurora">
         <div className="aurora-blob" />
         <div className="aurora-blob" />
@@ -66,36 +65,27 @@ export function Hero() {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-12 items-center">
-        {/* Left — text */}
         <div className="flex flex-col gap-6">
-          {/* Badge */}
           <div className="inline-flex items-center gap-2 w-fit px-4 py-2 rounded-full border border-border bg-bg-surface/50 backdrop-blur-sm">
             <span className="text-star text-sm">&#9733; 5.0</span>
-            <span className="text-text-secondary text-sm">Verified Reviews</span>
+            <span className="text-text-secondary text-sm">{t.hero.badge}</span>
           </div>
 
           <h1
             className="font-heading text-4xl sm:text-5xl lg:text-7xl leading-[1.1]"
             style={{ textWrap: "balance" } as React.CSSProperties}
           >
-            Ваши отзывы работают{" "}
-            <span className="shimmer-text">на вас</span>{" "}
-            или против вас?
+            {t.hero.heading1}{" "}
+            <span className="shimmer-text">{t.hero.headingHighlight}</span>{" "}
+            {t.hero.heading2}
           </h1>
 
           <p className="text-text-secondary text-lg max-w-xl leading-relaxed">
-            88% людей доверяют онлайн-отзывам так же, как личным рекомендациям.
-            Мы помогаем бизнесу управлять репутацией через Reviews.io: легально,
-            чисто и с гарантией результата.
+            {t.hero.desc}
           </p>
 
-          {/* Benefits list */}
           <ul className="flex flex-col gap-3 text-text-secondary">
-            {[
-              "Проходят модерацию без риска",
-              "Влияют на решение о покупке",
-              "Работают на вас 24/7",
-            ].map((item) => (
+            {[t.hero.benefit1, t.hero.benefit2, t.hero.benefit3].map((item) => (
               <li key={item} className="flex items-center gap-3">
                 <span className="w-5 h-5 rounded-full bg-success/20 flex items-center justify-center flex-shrink-0">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--success)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
@@ -107,32 +97,16 @@ export function Hero() {
             ))}
           </ul>
 
-          {/* CTAs */}
           <div className="flex flex-wrap gap-4 mt-2">
-            <a href="#contact" className="glow-btn">
-              Хочу в топ
-            </a>
-            <a href="#value" className="ghost-btn">
-              Узнать больше
-            </a>
+            <a href="#contact" className="glow-btn">{t.hero.cta1}</a>
+            <a href="#value" className="ghost-btn">{t.hero.cta2}</a>
           </div>
         </div>
 
-        {/* Right — 3D stamp */}
         <div className="flex items-center justify-center lg:justify-end">
-          <div
-            className="stamp-3d"
-            onMouseMove={handleStampMove}
-            onMouseLeave={handleStampLeave}
-          >
+          <div className="stamp-3d" onMouseMove={handleStampMove} onMouseLeave={handleStampLeave}>
             <div ref={stampRef} className="stamp-3d-inner relative">
-              {/* Glow ring behind stamp */}
-              <div
-                className="absolute inset-[-12px] rounded-full"
-                style={{ animation: "glow-pulse 3s ease-in-out infinite" }}
-              />
-
-              {/* Stamp circle with animated border */}
+              <div className="absolute inset-[-12px] rounded-full" style={{ animation: "glow-pulse 3s ease-in-out infinite" }} />
               <div className="stamp-circle gradient-border-round">
                 <span className="text-6xl sm:text-7xl font-heading gradient-text">
                   <AnimatedCounter target={5.0} duration={2500} />
@@ -144,40 +118,20 @@ export function Hero() {
                     </svg>
                   ))}
                 </div>
-                <span className="text-sm text-success font-semibold uppercase tracking-wider">
-                  Verified
-                </span>
+                <span className="text-sm text-success font-semibold uppercase tracking-wider">{t.hero.verified}</span>
               </div>
-
-              {/* Floating mini tags */}
-              <div
-                className="floating-tag absolute -top-2 -right-10"
-                style={{ animation: "float-gentle 4s ease-in-out infinite" }}
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--star)">
-                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                </svg>
+              <div className="floating-tag absolute -top-2 -right-10" style={{ animation: "float-gentle 4s ease-in-out infinite" }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
                 <span className="font-semibold">Reviews.io</span>
                 <span className="text-success text-xs">4.9</span>
               </div>
-              <div
-                className="floating-tag absolute -bottom-2 -left-10"
-                style={{ animation: "float-gentle 5s ease-in-out infinite 1s" }}
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="10" />
-                  <polyline points="8 12 11 15 16 9" />
-                </svg>
+              <div className="floating-tag absolute -bottom-2 -left-10" style={{ animation: "float-gentle 5s ease-in-out infinite 1s" }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="8 12 11 15 16 9" /></svg>
                 <span className="font-semibold">Google Ads</span>
                 <span className="text-accent text-xs">GEO</span>
               </div>
-              <div
-                className="floating-tag absolute top-1/2 -left-16 -translate-y-1/2"
-                style={{ animation: "float-gentle 6s ease-in-out infinite 0.5s" }}
-              >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--success)">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                </svg>
+              <div className="floating-tag absolute top-1/2 -left-16 -translate-y-1/2" style={{ animation: "float-gentle 6s ease-in-out infinite 0.5s" }}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--success)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
                 <span className="font-semibold">Secure</span>
               </div>
             </div>

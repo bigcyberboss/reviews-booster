@@ -1,45 +1,34 @@
-import { SpotlightCard } from "./SpotlightCard";
+"use client";
 
-const ITEMS = [
-  {
-    icon: "\u{1F50D}",
-    title: "Модерация изнутри",
-    desc: "Знаем слепые зоны Reviews.io. Отзыв проходит модерацию, но звучит живо и естественно.",
-  },
-  {
-    icon: "\u{1F512}",
-    title: "Чистота данных",
-    desc: "Никаких ферм, никаких общих прокси. Каждый отзыв это уникальная сессия, уникальное устройство.",
-  },
-  {
-    icon: "\u{1F30F}",
-    title: "Гео под ваш рынок",
-    desc: "Работаем по странам и регионам. Отзыв из нужной локации = доверие аудитории.",
-  },
-  {
-    icon: "\u{1F575}",
-    title: "Полная конфиденциальность",
-    desc: "Не публикуем кейсы. Сотрудничество strictly anonymous. Ваш бизнес под защитой.",
-  },
-];
+import { SpotlightCard } from "./SpotlightCard";
+import { useLang } from "./LangContext";
 
 export function Advantages() {
+  const { t } = useLang();
+
+  const items = [
+    { icon: "\u{1F50D}", title: t.advantages.adv1Title, desc: t.advantages.adv1Desc },
+    { icon: "\u{1F512}", title: t.advantages.adv2Title, desc: t.advantages.adv2Desc },
+    { icon: "\u{1F30F}", title: t.advantages.adv3Title, desc: t.advantages.adv3Desc },
+    { icon: "\u{1F575}", title: t.advantages.adv4Title, desc: t.advantages.adv4Desc },
+  ];
+
   return (
     <section id="advantages" className="relative py-24 sm:py-32">
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 animate-on-scroll">
           <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl mb-4">
-            Мы не льём.{" "}
-            <span className="gradient-text">Мы строим.</span>
+            {t.advantages.heading1}{" "}
+            <span className="gradient-text">{t.advantages.headingHighlight}</span>
           </h2>
         </div>
 
         {/* 2x2 grid */}
         <div className="grid sm:grid-cols-2 gap-6">
-          {ITEMS.map((item, i) => (
+          {items.map((item, i) => (
             <SpotlightCard
-              key={item.title}
+              key={i}
               className={`p-8 animate-on-scroll stagger-${i + 1}`}
             >
               <div className="flex gap-5">

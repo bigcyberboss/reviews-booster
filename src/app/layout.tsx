@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
 import { DM_Serif_Display, DM_Sans } from "next/font/google";
+import { LangProvider } from "@/components/LangContext";
 import "./globals.css";
 
 const dmSerif = DM_Serif_Display({
   weight: "400",
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
   variable: "--font-heading",
   display: "swap",
 });
 
 const dmSans = DM_Sans({
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
   variable: "--font-body",
   display: "swap",
 });
@@ -27,9 +28,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru" data-theme="linear">
+    <html lang="ru" data-theme="linear" suppressHydrationWarning>
       <body className={`${dmSerif.variable} ${dmSans.variable} font-body antialiased`}>
-        {children}
+        <LangProvider>
+          {children}
+        </LangProvider>
       </body>
     </html>
   );
