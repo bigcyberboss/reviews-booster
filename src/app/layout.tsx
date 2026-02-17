@@ -17,9 +17,9 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Reviews Booster | Управление репутацией через Reviews.io",
+  title: "Reviews Booster | Reputation Management via Reviews.io",
   description:
-    "Помогаем бизнесу управлять репутацией через Reviews.io: легально, чисто и с гарантией результата. Отзывы, которые работают на вас 24/7.",
+    "We help businesses manage their reputation on Reviews.io: legally, cleanly and with guaranteed results. Reviews that work for you 24/7.",
 };
 
 export default function RootLayout({
@@ -28,11 +28,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru" data-theme="linear" suppressHydrationWarning>
-      <body className={`${dmSerif.variable} ${dmSans.variable} font-body antialiased`}>
-        <LangProvider>
-          {children}
-        </LangProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${dmSerif.variable} ${dmSans.variable} font-body antialiased`}
+      >
+        <LangProvider>{children}</LangProvider>
       </body>
     </html>
   );
