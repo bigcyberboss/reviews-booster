@@ -75,7 +75,7 @@ export function Hero() {
           </div>
 
           <h1
-            className="font-heading text-4xl sm:text-5xl lg:text-6xl leading-tight"
+            className="font-heading text-4xl sm:text-5xl lg:text-7xl leading-[1.1]"
             style={{ textWrap: "balance" } as React.CSSProperties}
           >
             Ваши отзывы работают{" "}
@@ -132,8 +132,8 @@ export function Hero() {
                 style={{ animation: "glow-pulse 3s ease-in-out infinite" }}
               />
 
-              {/* Stamp circle */}
-              <div className="stamp-circle">
+              {/* Stamp circle with animated border */}
+              <div className="stamp-circle gradient-border-round">
                 <span className="text-6xl sm:text-7xl font-heading gradient-text">
                   <AnimatedCounter target={5.0} duration={2500} />
                 </span>

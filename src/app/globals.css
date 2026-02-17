@@ -516,6 +516,15 @@ body::before {
   transition: border-color 0.3s ease;
 }
 
+.gradient-border-round {
+  --border-angle: 0deg;
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--bg-surface), var(--bg-surface)) padding-box,
+    conic-gradient(from var(--border-angle), var(--gradient-from), var(--gradient-via), var(--gradient-to), transparent, var(--gradient-from)) border-box;
+  animation: spin-border 6s linear infinite;
+}
+
 @media (min-width: 640px) {
   .stamp-circle {
     width: 300px;
@@ -534,16 +543,13 @@ body::before {
   border-color: rgba(16, 185, 129, 0.35);
 }
 
-[data-theme="clean"] .stamp-circle,
-[data-theme="rose"] .stamp-circle {
-  background: rgba(255, 255, 255, 0.85);
+[data-theme="clean"] .stamp-circle.gradient-border-round,
+[data-theme="rose"] .stamp-circle.gradient-border-round {
+  background:
+    linear-gradient(var(--bg-surface), var(--bg-surface)) padding-box,
+    conic-gradient(from var(--border-angle), var(--gradient-from), var(--gradient-via), var(--gradient-to), transparent, var(--gradient-from)) border-box;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
 }
-
-[data-theme="clean"] .stamp-circle { border-color: rgba(79, 70, 229, 0.12); }
-[data-theme="clean"] .stamp-circle:hover { border-color: rgba(79, 70, 229, 0.25); }
-[data-theme="rose"] .stamp-circle { border-color: rgba(225, 29, 72, 0.12); }
-[data-theme="rose"] .stamp-circle:hover { border-color: rgba(225, 29, 72, 0.25); }
 
 [data-theme="sunset"] .stamp-circle { border-color: rgba(249, 115, 22, 0.15); }
 [data-theme="sunset"] .stamp-circle:hover { border-color: rgba(249, 115, 22, 0.35); }
