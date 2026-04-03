@@ -5,6 +5,9 @@ const isProd = process.env.NODE_ENV === "production";
 const nextConfig: NextConfig = {
   output: "export",
   basePath: isProd ? "/reviews-booster" : "",
+  env: {
+    NEXT_PUBLIC_BASE_PATH: isProd ? "/reviews-booster" : "",
+  },
   images: {
     unoptimized: true,
   },

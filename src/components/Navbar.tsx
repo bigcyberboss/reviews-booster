@@ -16,6 +16,10 @@ export function Navbar() {
       e.preventDefault();
       document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
       window.history.replaceState(null, "", `#${hash}`);
+    } else {
+      e.preventDefault();
+      const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+      window.location.href = `${basePath}/#${hash}`;
     }
   }, [pathname]);
   const [scrolled, setScrolled] = useState(false);
