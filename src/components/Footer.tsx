@@ -29,14 +29,14 @@ export function Footer() {
             <h4 className="text-sm font-semibold text-text-primary mb-4">Legal</h4>
             <ul className="flex flex-col gap-2.5">
               <li>
-                <a href="#" className="text-sm text-text-secondary hover:text-text-primary transition-colors">
+                <Link href="/privacy-policy" className="text-sm text-text-secondary hover:text-text-primary transition-colors">
                   Privacy Policy
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-sm text-text-secondary hover:text-text-primary transition-colors">
+                <Link href="/terms-of-use" className="text-sm text-text-secondary hover:text-text-primary transition-colors">
                   Terms of Use
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
