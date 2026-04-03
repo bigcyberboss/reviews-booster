@@ -11,10 +11,10 @@ export function Navbar() {
   const [scrollProgress, setScrollProgress] = useState(0);
 
   const NAV_LINKS = [
-    { href: "#how-it-works", label: t.nav.howItWorks },
-    { href: "#pricing", label: t.nav.pricing },
-    { href: "#advantages", label: t.nav.advantages },
-    { href: "#contacts", label: t.nav.contacts },
+    { href: "/#how-it-works", label: t.nav.howItWorks },
+    { href: "/#pricing", label: t.nav.pricing },
+    { href: "/#advantages", label: t.nav.advantages },
+    { href: "/#contacts", label: t.nav.contacts },
     { href: "/cases", label: t.nav.cases, isPage: true },
   ];
 
@@ -49,7 +49,7 @@ export function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-2.5 group">
+        <a href="/" className="flex items-center gap-2.5 group">
           <div className="relative w-8 h-8 flex items-center justify-center shrink-0">
             <div className="absolute inset-0 rounded-lg opacity-30 group-hover:opacity-50 transition-opacity"
               style={{
@@ -89,7 +89,7 @@ export function Navbar() {
             );
           })}
 
-          <a href="#pricing" className="glow-btn text-sm !py-2 !px-5">
+          <a href="/#pricing" className="glow-btn text-sm !py-2 !px-5">
             {t.nav.cta}
           </a>
         </div>
@@ -129,7 +129,7 @@ export function Navbar() {
             </a>
           ))}
           <a
-            href="#pricing"
+            href="/#pricing"
             onClick={() => setMobileOpen(false)}
             className="glow-btn text-center text-sm !py-2"
           >
