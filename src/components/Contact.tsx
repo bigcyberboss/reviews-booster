@@ -4,9 +4,24 @@ import { useState } from "react";
 
 export function Contact() {
   const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
+    const website = (form.elements.namedItem("website") as HTMLInputElement).value.trim();
+    const email = (form.elements.namedItem("email") as HTMLInputElement).value.trim();
+    const newErrors: Record<string, string> = {};
+
+    if (!website) newErrors.website = "Please enter your website";
+    if (!email) newErrors.email = "Please enter your email";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) newErrors.email = "Please enter a valid email";
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+    setErrors({});
     setSubmitted(true);
   };
 
@@ -41,18 +56,20 @@ export function Contact() {
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+              <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
                 <div>
                   <label htmlFor="website" className="text-sm text-text-secondary mb-1.5 block">
                     Website <span className="text-accent">*</span>
                   </label>
                   <input
                     id="website"
-                    type="url"
-                    required
-                    className="w-full px-4 py-3 rounded-xl bg-bg-hover/50 border border-border text-bg placeholder:text-text-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition-all"
+                    name="website"
+                    type="text"
+                    onChange={() => errors.website && setErrors(e => ({ ...e, website: "" }))}
+                    className={`w-full px-4 py-3 rounded-xl bg-[#1a1a2e] border text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition-all ${errors.website ? "border-red-500" : "border-border"}`}
                     placeholder="yourwebsite.com"
                   />
+                  {errors.website && <p className="text-red-400 text-xs mt-1.5">{errors.website}</p>}
                 </div>
 
                 <div>
@@ -61,11 +78,13 @@ export function Contact() {
                   </label>
                   <input
                     id="email"
-                    type="email"
-                    required
-                    className="w-full px-4 py-3 rounded-xl bg-bg-hover/50 border border-border text-bg placeholder:text-text-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition-all"
+                    name="email"
+                    type="text"
+                    onChange={() => errors.email && setErrors(e => ({ ...e, email: "" }))}
+                    className={`w-full px-4 py-3 rounded-xl bg-[#1a1a2e] border text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition-all ${errors.email ? "border-red-500" : "border-border"}`}
                     placeholder="name@mail.com"
                   />
+                  {errors.email && <p className="text-red-400 text-xs mt-1.5">{errors.email}</p>}
                 </div>
 
                 <div>
@@ -74,8 +93,9 @@ export function Contact() {
                   </label>
                   <input
                     id="reviews-profile"
-                    type="url"
-                    className="w-full px-4 py-3 rounded-xl bg-bg-hover/50 border border-border text-bg placeholder:text-text-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition-all"
+                    name="reviews-profile"
+                    type="text"
+                    className="w-full px-4 py-3 rounded-xl bg-[#1a1a2e] border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition-all"
                     placeholder="https://reviews.io/company-reviews/..."
                   />
                 </div>
@@ -87,7 +107,7 @@ export function Contact() {
                   <textarea
                     id="info"
                     rows={3}
-                    className="w-full px-4 py-3 rounded-xl bg-bg-hover/50 border border-border text-bg placeholder:text-text-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition-all resize-none"
+                    className="w-full px-4 py-3 rounded-xl bg-[#1a1a2e] border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition-all resize-none"
                     placeholder="Your goals, questions, or requirements"
                   />
                 </div>
@@ -115,7 +135,7 @@ export function Contact() {
                 href="https://t.me/your_telegram_username"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 p-4 rounded-xl bg-bg-hover/50 border border-border hover:border-accent/40 transition-all group"
+                className="flex items-center gap-4 p-4 rounded-xl bg-[#1a1a2e] border border-border hover:border-accent/40 transition-all group"
               >
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center border border-border bg-bg-surface/80 shrink-0 group-hover:border-accent/40 group-hover:shadow-[0_0_16px_var(--glow-soft)] transition-all">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-glow)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
