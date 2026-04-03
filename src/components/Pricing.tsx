@@ -17,7 +17,13 @@ const PLUS = (
   </svg>
 );
 
-function Tooltip({ text }: { text: string }) {
+const MINI_CHECK = (
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--success)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+    <polyline points="20 6 9 17 4 12" />
+  </svg>
+);
+
+function Tooltip({ items }: { items: string[] }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -36,8 +42,16 @@ function Tooltip({ text }: { text: string }) {
         </svg>
       </button>
       {open && (
-        <span className="absolute z-50 left-6 top-1/2 -translate-y-1/2 w-56 px-4 py-3 rounded-xl bg-bg-surface border border-border text-xs text-text-secondary leading-relaxed shadow-xl shadow-black/30 pointer-events-none">
-          {text}
+        <span className="absolute z-[100] bottom-full left-1/2 -translate-x-1/2 mb-2 w-60 px-4 py-3 rounded-xl bg-bg-surface border border-border shadow-2xl shadow-black/50">
+          <ul className="flex flex-col gap-1.5">
+            {items.map((item, i) => (
+              <li key={i} className="flex items-center gap-2 text-[11px] text-text-secondary">
+                {MINI_CHECK}
+                {item}
+              </li>
+            ))}
+          </ul>
+          <span className="absolute top-full left-1/2 -translate-x-1/2 w-2 h-2 bg-bg-surface border-r border-b border-border rotate-45 -mt-1" />
         </span>
       )}
     </span>
@@ -51,7 +65,7 @@ const PLANS = [
     desc: "from 10 reviews",
     popular: false,
     features: [
-      { icon: "check", text: "Reviews Geo: 1 country", tooltip: "Tooltip text coming soon" },
+      { icon: "check", text: "Reviews Geo: 1 country", tooltip: ["Tooltip text coming soon"] },
       { icon: "check", text: "Launch within 48 hours" },
       { icon: "check", text: "100% White Label" },
       { icon: "check", text: "Unique IPs and devices" },
@@ -64,8 +78,8 @@ const PLANS = [
     desc: "from 100 reviews / month",
     popular: true,
     features: [
-      { icon: "plus", text: "All Start features included", tooltip: "Launch within 48 hours, 100% White Label, Unique IPs and devices, Text approval" },
-      { icon: "check", text: "Reviews Geo: up to 3 countries", tooltip: "Tooltip text coming soon" },
+      { icon: "plus", text: "All Start features included", tooltip: ["Launch within 48 hours", "100% White Label", "Unique IPs and devices", "Text approval"] },
+      { icon: "check", text: "Reviews Geo: up to 3 countries", tooltip: ["Tooltip text coming soon"] },
       { icon: "check", text: "Monthly strategy report" },
       { icon: "check", text: "Priority approval" },
       { icon: "check", text: "Moderation guarantee" },
@@ -77,8 +91,8 @@ const PLANS = [
     desc: "from 200 reviews / month",
     popular: false,
     features: [
-      { icon: "plus", text: "All Start + Balance features included", tooltip: "Launch within 48 hours, 100% White Label, Unique IPs and devices, Text approval, Monthly strategy report, Priority approval, Moderation guarantee" },
-      { icon: "check", text: "Reviews Geo: any country", tooltip: "Tooltip text coming soon" },
+      { icon: "plus", text: "All Start + Balance features included", tooltip: ["Launch within 48 hours", "100% White Label", "Unique IPs and devices", "Text approval", "Monthly strategy report", "Priority approval", "Moderation guarantee"] },
+      { icon: "check", text: "Reviews Geo: any country", tooltip: ["Tooltip text coming soon"] },
       { icon: "check", text: "Dedicated account manager" },
       { icon: "check", text: "Priority 24/7 support" },
       { icon: "check", text: "Quarterly strategy review" },
@@ -122,7 +136,7 @@ export function Pricing() {
                       {f.icon === "plus" ? PLUS : CHECK}
                       <span className="flex items-center">
                         {f.text}
-                        {f.tooltip && <Tooltip text={f.tooltip} />}
+                        {f.tooltip && <Tooltip items={f.tooltip} />}
                       </span>
                     </li>
                   ))}
