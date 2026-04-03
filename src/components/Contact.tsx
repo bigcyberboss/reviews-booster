@@ -14,6 +14,8 @@ export function Contact() {
     const newErrors: Record<string, string> = {};
 
     if (!website) newErrors.website = "Please enter your website";
+    else if (!/^[a-zA-Z0-9]([a-zA-Z0-9-]*\.)+[a-zA-Z]{2,}/.test(website.replace(/^https?:\/\//, "").replace(/^www\./, "")))
+      newErrors.website = "Enter a valid domain (e.g. yoursite.com)";
     if (!email) newErrors.email = "Please enter your email";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) newErrors.email = "Please enter a valid email";
 
