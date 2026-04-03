@@ -1,11 +1,23 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useLang } from "./LangContext";
 
 export function Navbar() {
   const { t } = useLang();
+  const pathname = usePathname();
+
+  const handleHashClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    const hash = href.replace("/#", "");
+    const isHome = pathname === "/" || pathname === "";
+    if (isHome) {
+      e.preventDefault();
+      document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
+      window.history.replaceState(null, "", `#${hash}`);
+    }
+  }, [pathname]);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
@@ -72,10 +84,12 @@ export function Navbar() {
           {NAV_LINKS.map((link) => {
             const sectionId = link.href.replace("/#", "").replace("/", "");
             const isActive = !link.isPage && activeSection === sectionId;
+            const isHash = link.href.startsWith("/#");
             return (
               <Link
                 key={link.href}
                 href={link.href}
+                onClick={isHash ? (e) => handleHashClick(e, link.href) : undefined}
                 className={`text-sm transition-colors relative ${
                   isActive
                     ? "text-text-primary"
@@ -90,7 +104,7 @@ export function Navbar() {
             );
           })}
 
-          <Link href="/#pricing" className="glow-btn text-sm !py-2 !px-5">
+          <Link href="/#pricing" onClick={(e) => handleHashClick(e, "/#pricing")} className="glow-btn text-sm !py-2 !px-5">
             {t.nav.cta}
           </Link>
         </div>
@@ -119,19 +133,22 @@ export function Navbar() {
         }`}
       >
         <div className="px-6 pb-6 pt-2 bg-bg/95 backdrop-blur-xl border-b border-border flex flex-col gap-4">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setMobileOpen(false)}
-              className="text-text-secondary hover:text-text-primary transition-colors"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {NAV_LINKS.map((link) => {
+            const isHash = link.href.startsWith("/#");
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={(e) => { setMobileOpen(false); if (isHash) handleHashClick(e, link.href); }}
+                className="text-text-secondary hover:text-text-primary transition-colors"
+              >
+                {link.label}
+              </Link>
+            );
+          })}
           <Link
             href="/#pricing"
-            onClick={() => setMobileOpen(false)}
+            onClick={(e) => { setMobileOpen(false); handleHashClick(e, "/#pricing"); }}
             className="glow-btn text-center text-sm !py-2"
           >
             {t.nav.cta}
