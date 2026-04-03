@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { SpotlightCard } from "./SpotlightCard";
 
 const CHECK = (
@@ -96,9 +97,9 @@ export function Pricing() {
                   ))}
                 </ul>
 
-                <a href="#contacts" className={plan.popular ? "glow-btn text-center" : "ghost-btn text-center"}>
+                <Link href="/#contacts" className={plan.popular ? "glow-btn text-center" : "ghost-btn text-center"}>
                   Choose {plan.name}
-                </a>
+                </Link>
               </div>
             );
 

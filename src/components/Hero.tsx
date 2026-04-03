@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState, type MouseEvent } from "react";
+import Link from "next/link";
 import { useLang } from "./LangContext";
 
 function AnimatedCounter({ target, duration = 2000 }: { target: number; duration?: number }) {
@@ -102,8 +103,8 @@ export function Hero() {
           </ul>
 
           <div className="flex flex-wrap gap-4 mt-2">
-            <a href="#pricing" className="glow-btn">Get Started</a>
-            <a href="/cases" className="ghost-btn">Our Cases</a>
+            <Link href="/#pricing" className="glow-btn">Get Started</Link>
+            <Link href="/cases" className="ghost-btn">Our Cases</Link>
           </div>
         </div>
 

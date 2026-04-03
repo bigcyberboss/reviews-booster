@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { useLang } from "./LangContext";
 
 export function Navbar() {
@@ -49,7 +50,7 @@ export function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="/" className="flex items-center gap-2.5 group">
+        <Link href="/" className="flex items-center gap-2.5 group">
           <div className="relative w-8 h-8 flex items-center justify-center shrink-0">
             <div className="absolute inset-0 rounded-lg opacity-30 group-hover:opacity-50 transition-opacity"
               style={{
@@ -65,14 +66,14 @@ export function Navbar() {
           <span className="text-sm font-semibold text-text-primary opacity-80 group-hover:opacity-100 transition-opacity">
             Review Boosters
           </span>
-        </a>
+        </Link>
 
         <div className="hidden md:flex items-center gap-8">
           {NAV_LINKS.map((link) => {
-            const sectionId = link.href.replace("#", "");
+            const sectionId = link.href.replace("/#", "").replace("/", "");
             const isActive = !link.isPage && activeSection === sectionId;
             return (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 className={`text-sm transition-colors relative ${
@@ -85,13 +86,13 @@ export function Navbar() {
                 {isActive && (
                   <span className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-accent" />
                 )}
-              </a>
+              </Link>
             );
           })}
 
-          <a href="/#pricing" className="glow-btn text-sm !py-2 !px-5">
+          <Link href="/#pricing" className="glow-btn text-sm !py-2 !px-5">
             {t.nav.cta}
-          </a>
+          </Link>
         </div>
 
         <button
@@ -119,22 +120,22 @@ export function Navbar() {
       >
         <div className="px-6 pb-6 pt-2 bg-bg/95 backdrop-blur-xl border-b border-border flex flex-col gap-4">
           {NAV_LINKS.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               onClick={() => setMobileOpen(false)}
               className="text-text-secondary hover:text-text-primary transition-colors"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
-          <a
+          <Link
             href="/#pricing"
             onClick={() => setMobileOpen(false)}
             className="glow-btn text-center text-sm !py-2"
           >
             {t.nav.cta}
-          </a>
+          </Link>
         </div>
       </div>
     </nav>
