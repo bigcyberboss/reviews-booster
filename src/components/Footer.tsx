@@ -6,7 +6,7 @@ export function Footer() {
   return (
     <footer className="border-t border-border">
       <div className="max-w-7xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-10 mb-12">
+        <div className="grid grid-cols-2 sm:grid-cols-[1fr_1fr_auto_auto] gap-x-10 gap-y-10 mb-12">
           {/* Contacts */}
           <div>
             <h4 className="text-sm font-semibold text-text-primary mb-4">Contacts</h4>
@@ -43,7 +43,7 @@ export function Footer() {
 
           {/* Navigation left */}
           <div>
-            <h4 className="text-sm font-semibold text-text-primary mb-4 sm:invisible">Navigation</h4>
+            <h4 className="text-sm font-semibold text-text-primary mb-4">Navigation</h4>
             <ul className="flex flex-col gap-2.5">
               <li>
                 <Link href="/#how-it-works" className="text-sm text-text-secondary hover:text-text-primary transition-colors">
@@ -65,7 +65,7 @@ export function Footer() {
 
           {/* Navigation right */}
           <div>
-            <h4 className="text-sm font-semibold text-text-primary mb-4 invisible">Navigation</h4>
+            <h4 className="text-sm font-semibold text-text-primary mb-4 invisible" aria-hidden="true">.</h4>
             <ul className="flex flex-col gap-2.5">
               <li>
                 <Link href="/#contacts" className="text-sm text-text-secondary hover:text-text-primary transition-colors">
