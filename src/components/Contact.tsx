@@ -174,8 +174,7 @@ export function Contact() {
                 <span className="text-sm font-semibold text-success">Open for enrollment</span>
               </div>
               <p className="text-text-secondary">
-                Currently <span className="text-text-primary font-semibold">6 slots</span>{" "}
-                available for integration. Next batch in 2-3 months.
+                We take only 3-5 clients per quarter to ensure quality and personal attention. Currently open for integration.
               </p>
             </div>
           </div>
