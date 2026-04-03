@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { handleHashNav } from "@/utils/navigation";
 
 export function Footer() {
   return (
@@ -46,19 +47,19 @@ export function Footer() {
             <h4 className="text-sm font-semibold text-text-primary mb-4">Navigation</h4>
             <ul className="flex flex-col gap-2.5">
               <li>
-                <Link href="/#how-it-works" className="text-sm text-text-secondary hover:text-text-primary transition-colors">
+                <a href="/#how-it-works" onClick={(e) => handleHashNav(e, "/#how-it-works")} className="text-sm text-text-secondary hover:text-text-primary transition-colors">
                   How It Works
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/#pricing" className="text-sm text-text-secondary hover:text-text-primary transition-colors">
+                <a href="/#pricing" onClick={(e) => handleHashNav(e, "/#pricing")} className="text-sm text-text-secondary hover:text-text-primary transition-colors">
                   Pricing
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/#advantages" className="text-sm text-text-secondary hover:text-text-primary transition-colors">
+                <a href="/#advantages" onClick={(e) => handleHashNav(e, "/#advantages")} className="text-sm text-text-secondary hover:text-text-primary transition-colors">
                   Advantages
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
@@ -68,9 +69,9 @@ export function Footer() {
             <h4 className="text-sm font-semibold text-text-primary mb-4 invisible" aria-hidden="true">.</h4>
             <ul className="flex flex-col gap-2.5">
               <li>
-                <Link href="/#contacts" className="text-sm text-text-secondary hover:text-text-primary transition-colors">
+                <a href="/#contacts" onClick={(e) => handleHashNav(e, "/#contacts")} className="text-sm text-text-secondary hover:text-text-primary transition-colors">
                   Contacts
-                </Link>
+                </a>
               </li>
               <li>
                 <Link href="/cases" className="text-sm text-text-secondary hover:text-text-primary transition-colors">

@@ -63,9 +63,17 @@ export default function CasesPage() {
             Want to become an invisible case?
           </p>
 
-          <Link href="/#contacts" className="glow-btn text-lg !py-4 !px-10">
+          <a
+            href="/#contacts"
+            onClick={(e) => {
+              e.preventDefault();
+              const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+              window.location.href = `${basePath}/#contacts`;
+            }}
+            className="glow-btn text-lg !py-4 !px-10"
+          >
             Work With Us
-          </Link>
+          </a>
         </div>
       </main>
       <Footer />

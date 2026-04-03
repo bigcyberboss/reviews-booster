@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { SpotlightCard } from "./SpotlightCard";
+import { handleHashNav } from "@/utils/navigation";
 
 const CHECK = (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
@@ -142,9 +142,9 @@ export function Pricing() {
                   ))}
                 </ul>
 
-                <Link href="/#contacts" className={plan.popular ? "glow-btn text-center" : "ghost-btn text-center"}>
+                <a href="/#contacts" onClick={(e) => handleHashNav(e, "/#contacts")} className={plan.popular ? "glow-btn text-center" : "ghost-btn text-center"}>
                   Choose {plan.name}
-                </Link>
+                </a>
               </div>
             );
 
