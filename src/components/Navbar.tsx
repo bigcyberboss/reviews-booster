@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useLang } from "./LangContext";
 
 export function Navbar() {
-  const { t, lang, setLang } = useLang();
+  const { t } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
@@ -78,14 +78,6 @@ export function Navbar() {
             );
           })}
 
-          {/* Lang toggle */}
-          <button
-            onClick={() => setLang(lang === "ru" ? "en" : "ru")}
-            className="text-xs font-semibold px-2.5 py-1 rounded-lg border border-border text-text-secondary hover:text-text-primary hover:border-accent transition-all"
-          >
-            {lang === "ru" ? "EN" : "RU"}
-          </button>
-
           <a href="#pricing" className="glow-btn text-sm !py-2 !px-5">
             {t.nav.cta}
           </a>
@@ -125,12 +117,6 @@ export function Navbar() {
               {link.label}
             </a>
           ))}
-          <button
-            onClick={() => setLang(lang === "ru" ? "en" : "ru")}
-            className="text-sm font-semibold text-text-secondary hover:text-text-primary transition-colors text-left"
-          >
-            {lang === "ru" ? "Switch to English" : "Переключить на русский"}
-          </button>
           <a
             href="#pricing"
             onClick={() => setMobileOpen(false)}
