@@ -11,10 +11,11 @@ export function Navbar() {
   const [scrollProgress, setScrollProgress] = useState(0);
 
   const NAV_LINKS = [
-    { href: "#value", label: t.nav.value },
+    { href: "#how-it-works", label: t.nav.howItWorks },
     { href: "#pricing", label: t.nav.pricing },
     { href: "#advantages", label: t.nav.advantages },
-    { href: "#contact", label: t.nav.contact },
+    { href: "#contacts", label: t.nav.contacts },
+    { href: "/cases", label: t.nav.cases, isPage: true },
   ];
 
   useEffect(() => {
@@ -24,7 +25,7 @@ export function Navbar() {
       const total = document.documentElement.scrollHeight - window.innerHeight;
       setScrollProgress(total > 0 ? (window.scrollY / total) * 100 : 0);
 
-      const sections = ["value", "pricing", "advantages", "contact"];
+      const sections = ["how-it-works", "pricing", "advantages", "contacts"];
       for (let i = sections.length - 1; i >= 0; i--) {
         const el = document.getElementById(sections[i]);
         if (el && el.getBoundingClientRect().top <= 120) {
@@ -51,27 +52,31 @@ export function Navbar() {
         <a href="#" className="flex items-center gap-2 group">
           <span className="text-xl font-heading gradient-text">RB</span>
           <span className="text-sm font-semibold text-text-primary opacity-80 group-hover:opacity-100 transition-opacity">
-            Reviews Booster
+            Review Boosters
           </span>
         </a>
 
         <div className="hidden md:flex items-center gap-8">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className={`text-sm transition-colors relative ${
-                activeSection === link.href.slice(1)
-                  ? "text-text-primary"
-                  : "text-text-secondary hover:text-text-primary"
-              }`}
-            >
-              {link.label}
-              {activeSection === link.href.slice(1) && (
-                <span className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-accent" />
-              )}
-            </a>
-          ))}
+          {NAV_LINKS.map((link) => {
+            const sectionId = link.href.replace("#", "");
+            const isActive = !link.isPage && activeSection === sectionId;
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                className={`text-sm transition-colors relative ${
+                  isActive
+                    ? "text-text-primary"
+                    : "text-text-secondary hover:text-text-primary"
+                }`}
+              >
+                {link.label}
+                {isActive && (
+                  <span className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-accent" />
+                )}
+              </a>
+            );
+          })}
 
           {/* Lang toggle */}
           <button
@@ -81,7 +86,7 @@ export function Navbar() {
             {lang === "ru" ? "EN" : "RU"}
           </button>
 
-          <a href="#contact" className="glow-btn text-sm !py-2 !px-5">
+          <a href="#pricing" className="glow-btn text-sm !py-2 !px-5">
             {t.nav.cta}
           </a>
         </div>
@@ -127,7 +132,7 @@ export function Navbar() {
             {lang === "ru" ? "Switch to English" : "Переключить на русский"}
           </button>
           <a
-            href="#contact"
+            href="#pricing"
             onClick={() => setMobileOpen(false)}
             className="glow-btn text-center text-sm !py-2"
           >

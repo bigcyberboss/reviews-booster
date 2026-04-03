@@ -17,7 +17,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Reviews Booster | Reputation Management via Reviews.io",
+  title: "Review Boosters | Reputation Management via Reviews.io",
   description:
     "We help businesses manage their reputation on Reviews.io: legally, cleanly and with guaranteed results. Reviews that work for you 24/7.",
 };

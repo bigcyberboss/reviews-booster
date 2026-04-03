@@ -13,7 +13,7 @@ export function Value() {
   ];
 
   return (
-    <section id="value" className="relative py-24 sm:py-32">
+    <section id="how-it-works" className="relative py-24 sm:py-32">
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 animate-on-scroll">

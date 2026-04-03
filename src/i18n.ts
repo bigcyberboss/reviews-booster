@@ -1,11 +1,12 @@
 export const translations = {
   ru: {
     nav: {
-      value: "Ценность",
+      howItWorks: "Как это работает",
       pricing: "Тарифы",
       advantages: "Преимущества",
-      contact: "Контакты",
-      cta: "Хочу в топ",
+      contacts: "Контакты",
+      cases: "Кейсы",
+      cta: "Начать",
     },
     hero: {
       badge: "Verified Reviews",
@@ -91,17 +92,22 @@ export const translations = {
       slotsCount: "6 слотов",
       slotsText2: "на интеграцию. Следующий набор через 2-3 месяца.",
     },
+    cases: {
+      comingSoon: "Скоро здесь появятся наши кейсы",
+      backHome: "На главную",
+    },
     footer: {
       top: "Наверх",
     },
   },
   en: {
     nav: {
-      value: "Value",
+      howItWorks: "How It Works",
       pricing: "Pricing",
       advantages: "Advantages",
-      contact: "Contact",
-      cta: "Get started",
+      contacts: "Contacts",
+      cases: "Cases",
+      cta: "Get Started",
     },
     hero: {
       badge: "Verified Reviews",
@@ -186,6 +192,10 @@ export const translations = {
       slotsText1: "Currently",
       slotsCount: "6 slots",
       slotsText2: "available for integration. Next batch in 2-3 months.",
+    },
+    cases: {
+      comingSoon: "Our case studies are coming soon",
+      backHome: "Back to home",
     },
     footer: {
       top: "Back to top",

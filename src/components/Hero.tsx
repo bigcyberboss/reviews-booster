@@ -98,8 +98,8 @@ export function Hero() {
           </ul>
 
           <div className="flex flex-wrap gap-4 mt-2">
-            <a href="#contact" className="glow-btn">{t.hero.cta1}</a>
-            <a href="#value" className="ghost-btn">{t.hero.cta2}</a>
+            <a href="#pricing" className="glow-btn">{t.hero.cta1}</a>
+            <a href="#how-it-works" className="ghost-btn">{t.hero.cta2}</a>
           </div>
         </div>
 

@@ -76,7 +76,7 @@ export function Pricing() {
                     ))}
                   </ul>
 
-                  <a href="#contact" className="glow-btn text-center">
+                  <a href="#contacts" className="glow-btn text-center">
                     {t.pricing.choose} {plan.name}
                   </a>
                 </div>
@@ -110,7 +110,7 @@ export function Pricing() {
                     ))}
                   </ul>
 
-                  <a href="#contact" className="ghost-btn text-center">
+                  <a href="#contacts" className="ghost-btn text-center">
                     {t.pricing.choose} {plan.name}
                   </a>
                 </div>

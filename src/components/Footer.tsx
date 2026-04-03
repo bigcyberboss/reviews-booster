@@ -11,7 +11,7 @@ export function Footer() {
         <div className="flex items-center gap-2">
           <span className="text-star">&#9733;</span>
           <span className="text-sm text-text-secondary">
-            Reviews Booster &copy; {new Date().getFullYear()}
+            Review Boosters &copy; {new Date().getFullYear()}
           </span>
         </div>
         <a
