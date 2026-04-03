@@ -49,8 +49,19 @@ export function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-2 group">
-          <span className="text-xl font-heading gradient-text">RB</span>
+        <a href="#" className="flex items-center gap-2.5 group">
+          <div className="relative w-8 h-8 flex items-center justify-center shrink-0">
+            <div className="absolute inset-0 rounded-lg opacity-30 group-hover:opacity-50 transition-opacity"
+              style={{
+                background: "radial-gradient(circle at 30% 30%, var(--accent-glow), var(--accent) 50%, transparent 70%)",
+                filter: "blur(4px)",
+              }}
+            />
+            <div className="relative w-7 h-7 rounded-lg flex items-center justify-center border border-white/10"
+              style={{ background: "linear-gradient(135deg, rgba(99,102,241,0.25), rgba(139,92,246,0.15))" }}>
+              <span className="text-[11px] font-heading text-white font-semibold">RB</span>
+            </div>
+          </div>
           <span className="text-sm font-semibold text-text-primary opacity-80 group-hover:opacity-100 transition-opacity">
             Review Boosters
           </span>
