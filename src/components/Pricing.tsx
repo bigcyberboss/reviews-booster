@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { SpotlightCard } from "./SpotlightCard";
 
@@ -16,6 +17,33 @@ const PLUS = (
   </svg>
 );
 
+function Tooltip({ text }: { text: string }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <span className="relative inline-flex ml-1">
+      <button
+        onMouseEnter={() => setOpen(true)}
+        onMouseLeave={() => setOpen(false)}
+        onClick={() => setOpen(!open)}
+        className="w-4 h-4 rounded-full border border-text-muted/40 flex items-center justify-center hover:border-accent hover:text-accent transition-colors cursor-help shrink-0"
+        aria-label="More info"
+      >
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="16" x2="12" y2="12" />
+          <line x1="12" y1="8" x2="12.01" y2="8" />
+        </svg>
+      </button>
+      {open && (
+        <span className="absolute z-50 left-6 top-1/2 -translate-y-1/2 w-56 px-4 py-3 rounded-xl bg-bg-surface border border-border text-xs text-text-secondary leading-relaxed shadow-xl shadow-black/30 pointer-events-none">
+          {text}
+        </span>
+      )}
+    </span>
+  );
+}
+
 const PLANS = [
   {
     name: "Start",
@@ -23,7 +51,7 @@ const PLANS = [
     desc: "from 10 reviews",
     popular: false,
     features: [
-      { icon: "check", text: "Reviews Geo: 1 country" },
+      { icon: "check", text: "Reviews Geo: 1 country", tooltip: "Tooltip text coming soon" },
       { icon: "check", text: "Launch within 48 hours" },
       { icon: "check", text: "100% White Label" },
       { icon: "check", text: "Unique IPs and devices" },
@@ -36,8 +64,8 @@ const PLANS = [
     desc: "from 100 reviews / month",
     popular: true,
     features: [
-      { icon: "plus", text: "All Start features included" },
-      { icon: "check", text: "Reviews Geo: up to 3 countries" },
+      { icon: "plus", text: "All Start features included", tooltip: "Launch within 48 hours, 100% White Label, Unique IPs and devices, Text approval" },
+      { icon: "check", text: "Reviews Geo: up to 3 countries", tooltip: "Tooltip text coming soon" },
       { icon: "check", text: "Monthly strategy report" },
       { icon: "check", text: "Priority approval" },
       { icon: "check", text: "Moderation guarantee" },
@@ -49,8 +77,8 @@ const PLANS = [
     desc: "from 200 reviews / month",
     popular: false,
     features: [
-      { icon: "plus", text: "All Start + Balance features included" },
-      { icon: "check", text: "Reviews Geo: any country" },
+      { icon: "plus", text: "All Start + Balance features included", tooltip: "Launch within 48 hours, 100% White Label, Unique IPs and devices, Text approval, Monthly strategy report, Priority approval, Moderation guarantee" },
+      { icon: "check", text: "Reviews Geo: any country", tooltip: "Tooltip text coming soon" },
       { icon: "check", text: "Dedicated account manager" },
       { icon: "check", text: "Priority 24/7 support" },
       { icon: "check", text: "Quarterly strategy review" },
@@ -92,7 +120,10 @@ export function Pricing() {
                   {plan.features.map((f, fi) => (
                     <li key={fi} className="flex items-center gap-3 text-text-secondary">
                       {f.icon === "plus" ? PLUS : CHECK}
-                      {f.text}
+                      <span className="flex items-center">
+                        {f.text}
+                        {f.tooltip && <Tooltip text={f.tooltip} />}
+                      </span>
                     </li>
                   ))}
                 </ul>
