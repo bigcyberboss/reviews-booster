@@ -103,7 +103,7 @@ export function Hero() {
           </ul>
 
           <div className="flex flex-wrap gap-4 mt-2">
-            <Link href="/#pricing" className="glow-btn">Get Started</Link>
+            <a href="#pricing" onClick={(e) => { e.preventDefault(); document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" }); }} className="glow-btn">Get Started</a>
             <Link href="/cases" className="ghost-btn">Our Cases</Link>
           </div>
         </div>
