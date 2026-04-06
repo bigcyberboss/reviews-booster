@@ -13,9 +13,15 @@ export default function Home() {
   useEffect(() => {
     const hash = window.location.hash.replace("#", "");
     if (hash) {
-      setTimeout(() => {
-        document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
-      }, 100);
+      const scrollToHash = (attempts = 0) => {
+        const el = document.getElementById(hash);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+        } else if (attempts < 10) {
+          setTimeout(() => scrollToHash(attempts + 1), 150);
+        }
+      };
+      setTimeout(() => scrollToHash(), 100);
     }
   }, []);
 

@@ -65,7 +65,7 @@ const PLANS = [
     desc: "from 10 reviews",
     popular: false,
     features: [
-      { icon: "check", text: "Reviews Geo: 1 country", tooltip: ["Right geo = ⭐ stars in your ads"] },
+      { icon: "check", text: "Reviews Geo: 1 country", tooltip: ["Right geo = ⭐ stars in your ads", "Contact us for geo recommendations"] },
       { icon: "check", text: "Launch within 48 hours" },
       { icon: "check", text: "100% White Label" },
       { icon: "check", text: "Unique IPs and devices" },
@@ -79,7 +79,7 @@ const PLANS = [
     popular: true,
     features: [
       { icon: "plus", text: "All Start features included", tooltip: ["Launch within 48 hours", "100% White Label", "Unique IPs and devices", "Text approval"] },
-      { icon: "check", text: "Reviews Geo: up to 3 countries", tooltip: ["Right geo = ⭐ stars in your ads"] },
+      { icon: "check", text: "Reviews Geo: up to 3 countries", tooltip: ["Right geo = ⭐ stars in your ads", "Contact us for geo recommendations"] },
       { icon: "check", text: "Monthly strategy report" },
       { icon: "check", text: "Priority approval" },
       { icon: "check", text: "Moderation guarantee" },
@@ -92,7 +92,7 @@ const PLANS = [
     popular: false,
     features: [
       { icon: "plus", text: "All Start + Balance features included", tooltip: ["Launch within 48 hours", "100% White Label", "Unique IPs and devices", "Text approval", "Monthly strategy report", "Priority approval", "Moderation guarantee"] },
-      { icon: "check", text: "Reviews Geo: any country", tooltip: ["Right geo = ⭐ stars in your ads"] },
+      { icon: "check", text: "Reviews Geo: any country", tooltip: ["Right geo = ⭐ stars in your ads", "Contact us for geo recommendations"] },
       { icon: "check", text: "Dedicated account manager" },
       { icon: "check", text: "Priority 24/7 support" },
       { icon: "check", text: "Quarterly strategy review" },
