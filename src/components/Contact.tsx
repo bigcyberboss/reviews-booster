@@ -134,7 +134,7 @@ export function Contact() {
               </p>
 
               <a
-                href="https://t.me/your_telegram_username"
+                href="https://t.me/rboosters_team"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 p-4 rounded-xl bg-[#1a1a2e] border border-border hover:border-accent/40 transition-all group"
@@ -146,7 +146,7 @@ export function Contact() {
                   </svg>
                 </div>
                 <span className="font-mono text-lg text-text-primary group-hover:text-accent transition-colors">
-                  @your_telegram_username
+                  @rboosters_team
                 </span>
               </a>
 

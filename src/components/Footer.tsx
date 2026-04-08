@@ -13,7 +13,7 @@ export function Footer() {
             <h4 className="text-sm font-semibold text-text-primary mb-4">Contacts</h4>
             <ul className="flex flex-col gap-2.5">
               <li>
-                <a href="https://t.me/your_telegram_username" target="_blank" rel="noopener noreferrer" className="text-sm text-text-secondary hover:text-text-primary transition-colors">
+                <a href="https://t.me/rboosters_team" target="_blank" rel="noopener noreferrer" className="text-sm text-text-secondary hover:text-text-primary transition-colors">
                   Telegram
                 </a>
               </li>
