@@ -66,8 +66,7 @@ export default function CasesPage() {
             href="/#contacts"
             onClick={(e) => {
               e.preventDefault();
-              const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
-              window.location.href = `${basePath}/#contacts`;
+              window.location.href = `/#contacts`;
             }}
             className="glow-btn text-lg !py-4 !px-10"
           >

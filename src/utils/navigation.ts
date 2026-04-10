@@ -8,7 +8,6 @@ export function handleHashNav(e: React.MouseEvent, href: string) {
     window.history.replaceState(null, "", `#${hash}`);
   } else {
     e.preventDefault();
-    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
-    window.location.href = `${basePath}/#${hash}`;
+    window.location.href = `/#${hash}`;
   }
 }
