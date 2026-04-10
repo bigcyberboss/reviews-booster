@@ -4,13 +4,18 @@ import { useState } from "react";
 
 export function Contact() {
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const website = (form.elements.namedItem("website") as HTMLInputElement).value.trim();
     const email = (form.elements.namedItem("email") as HTMLInputElement).value.trim();
+    const profile = (form.elements.namedItem("reviews-profile") as HTMLInputElement).value.trim();
+    const info = (form.elements.namedItem("info") as HTMLTextAreaElement).value.trim();
+    const hp = (form.elements.namedItem("hp") as HTMLInputElement).value.trim();
     const newErrors: Record<string, string> = {};
 
     if (!website) newErrors.website = "Please enter your website";
@@ -24,7 +29,25 @@ export function Contact() {
       return;
     }
     setErrors({});
-    setSubmitted(true);
+    setSendError("");
+    setSending(true);
+
+    try {
+      const res = await fetch("/contact.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ website, email, profile, info, hp }),
+      });
+      const data = await res.json().catch(() => ({ ok: false }));
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || "Something went wrong");
+      }
+      setSubmitted(true);
+    } catch (err) {
+      setSendError(err instanceof Error ? err.message : "Failed to send. Try Telegram instead.");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -59,6 +82,15 @@ export function Contact() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
+                {/* Honeypot — hidden from users, catches bots */}
+                <input
+                  type="text"
+                  name="hp"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", opacity: 0 }}
+                  aria-hidden="true"
+                />
                 <div>
                   <label htmlFor="website" className="text-sm text-text-secondary mb-1.5 block">
                     Website <span className="text-accent">*</span>
@@ -108,15 +140,20 @@ export function Contact() {
                   </label>
                   <textarea
                     id="info"
+                    name="info"
                     rows={3}
                     className="w-full px-4 py-3 rounded-xl bg-[#1a1a2e] border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition-all resize-none"
                     placeholder="Your goals, questions, or requirements"
                   />
                 </div>
 
-                <button type="submit" className="glow-btn mt-2">
-                  Send Request
+                <button type="submit" disabled={sending} className="glow-btn mt-2 disabled:opacity-60 disabled:cursor-not-allowed">
+                  {sending ? "Sending..." : "Send Request"}
                 </button>
+
+                {sendError && (
+                  <p className="text-red-400 text-sm text-center">{sendError}</p>
+                )}
 
                 <p className="text-text-muted text-xs text-center">
                   No spam. We&apos;ll reach out within 24 hours.
