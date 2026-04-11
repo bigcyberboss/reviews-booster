@@ -115,26 +115,63 @@ $payload = http_build_query([
     'disable_web_page_preview' => 'true',
 ]);
 
-$context = stream_context_create([
-    'http' => [
-        'method' => 'POST',
-        'header' => "Content-Type: application/x-www-form-urlencoded\r\n",
-        'content' => $payload,
-        'timeout' => 10,
-        'ignore_errors' => true,
+// Hetzner Webhosting has allow_url_fopen disabled, so file_get_contents()
+// can't reach HTTPS URLs. Use a raw TLS socket + hand-rolled HTTP/1.1 request
+// via stream_socket_client — works on any PHP install with openssl.
+$host = 'api.telegram.org';
+$path = '/bot' . $token . '/sendMessage';
+$body = $payload;
+
+$sslCtx = stream_context_create([
+    'ssl' => [
+        'verify_peer' => true,
+        'verify_peer_name' => true,
+        'SNI_enabled' => true,
     ],
 ]);
 
-$url = 'https://api.telegram.org/bot' . $token . '/sendMessage';
-$response = @file_get_contents($url, false, $context);
+$errno = 0; $errstr = '';
+$fp = @stream_socket_client(
+    'ssl://' . $host . ':443',
+    $errno,
+    $errstr,
+    5,
+    STREAM_CLIENT_CONNECT,
+    $sslCtx
+);
 
-$statusLine = $http_response_header[0] ?? '';
+if (!$fp) {
+    error_log('contact.php: TLS connect failed: ' . $errno . ' ' . $errstr);
+    fail(502, 'Failed to deliver');
+}
+
+stream_set_timeout($fp, 10);
+
+$req = "POST {$path} HTTP/1.1\r\n"
+     . "Host: {$host}\r\n"
+     . "User-Agent: review-boosters.org/1.0\r\n"
+     . "Content-Type: application/x-www-form-urlencoded\r\n"
+     . "Content-Length: " . strlen($body) . "\r\n"
+     . "Connection: close\r\n"
+     . "\r\n"
+     . $body;
+
+fwrite($fp, $req);
+
+$raw = '';
+while (!feof($fp)) {
+    $chunk = fread($fp, 8192);
+    if ($chunk === false) { break; }
+    $raw .= $chunk;
+}
+fclose($fp);
+
 $httpCode = 0;
-if (preg_match('#HTTP/\S+\s+(\d+)#', $statusLine, $m)) {
+if (preg_match('#^HTTP/\S+\s+(\d+)#', $raw, $m)) {
     $httpCode = (int)$m[1];
 }
 
-if ($response === false || $httpCode !== 200) {
+if ($httpCode !== 200) {
     error_log('contact.php: telegram send failed, http=' . $httpCode);
     fail(502, 'Failed to deliver');
 }
