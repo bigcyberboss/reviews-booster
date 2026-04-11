@@ -38,8 +38,18 @@ yarn-error.log*
 *.secret
 *.secret.php
 
+# local editor / AI tool configs — may contain cached paths or allow-lists
+.claude/
+.zed/
+
 # vercel
 .vercel
+
+# macOS file manager duplicates
+* 2.json
+* 2.md
+* 2.ts
+* 2.tsx
 
 # typescript
 *.tsbuildinfo
