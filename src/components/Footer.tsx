@@ -12,14 +12,16 @@ export function Footer() {
           <div>
             <h4 className="text-sm font-semibold text-text-primary mb-4">Contacts</h4>
             <ul className="flex flex-col gap-2.5">
-              <li>
-                <a href="https://t.me/rboosters_team" target="_blank" rel="noopener noreferrer" className="text-sm text-text-secondary hover:text-text-primary transition-colors">
-                  Telegram
+              <li className="text-sm text-text-secondary">
+                <span>Telegram: </span>
+                <a href="https://t.me/rboosters_team" target="_blank" rel="noopener noreferrer" className="text-text-primary hover:text-accent transition-colors">
+                  @rboosters_team
                 </a>
               </li>
-              <li>
-                <a href="mailto:reputation@yourdomain.com" className="text-sm text-text-secondary hover:text-text-primary transition-colors">
-                  Email
+              <li className="text-sm text-text-secondary">
+                <span>Email: </span>
+                <a href="mailto:contact@review-boosters.org" className="text-text-primary hover:text-accent transition-colors">
+                  contact@review-boosters.org
                 </a>
               </li>
             </ul>
@@ -35,8 +37,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/terms-of-use" className="text-sm text-text-secondary hover:text-text-primary transition-colors">
-                  Terms of Use
+                <Link href="/terms-of-service" className="text-sm text-text-secondary hover:text-text-primary transition-colors">
+                  Terms of Service
                 </Link>
               </li>
             </ul>
@@ -87,14 +89,14 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Keywords */}
+        {/* Disclaimer */}
         <div className="border-t border-border pt-8 mb-6">
-          <p className="text-xs text-text-muted text-center tracking-wide">
-            SERM Team. White Label. Moderation Guarantee. Full Confidentiality.
+          <p className="text-xs text-text-muted text-center leading-relaxed max-w-4xl mx-auto">
+            Trustpilot, Reviews.io and Google Business are trademarks of their respective owners. Review Boosters is not affiliated with, endorsed by, or sponsored by these companies. All logos and trademarks are used for identification purposes only.
           </p>
         </div>
 
-        {/* Copyright */}
+        {/* Copyright + SERM line */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-2.5">
             <div className="relative w-6 h-6 flex items-center justify-center shrink-0">
@@ -113,6 +115,9 @@ export function Footer() {
               &copy; 2026 Review Boosters. All rights reserved.
             </span>
           </div>
+          <p className="text-xs text-text-muted tracking-wide">
+            SERM Team. White Label. Moderation Guarantee. Full Confidentiality.
+          </p>
         </div>
       </div>
     </footer>
