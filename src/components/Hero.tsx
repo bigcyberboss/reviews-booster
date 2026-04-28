@@ -2,51 +2,121 @@
 
 import { useRef, useEffect, useState, type MouseEvent } from "react";
 import Link from "next/link";
-import { useLang } from "./LangContext";
 
-function AnimatedCounter({ target, duration = 2000 }: { target: number; duration?: number }) {
-  const [value, setValue] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
-  const started = useRef(false);
+const PLATFORMS = [
+  {
+    id: "trustpilot",
+    name: "Trustpilot",
+    color: "#00B67A",
+    delivered: "5,100+ reviews delivered",
+    Logo: () => (
+      <svg viewBox="0 0 200 48" className="h-9 sm:h-10" aria-hidden="true">
+        <polygon points="24 4 30.18 16.52 44 18.54 34 28.28 36.36 42.04 24 35.54 11.64 42.04 14 28.28 4 18.54 17.82 16.52" fill="#00B67A" />
+        <text x="56" y="32" fontSize="22" fontWeight="700" fontFamily="Arial, Helvetica, sans-serif" fill="#fff" letterSpacing="-0.5">
+          Trustpilot
+        </text>
+      </svg>
+    ),
+  },
+  {
+    id: "reviewsio",
+    name: "Reviews.io",
+    color: "#0E5CDD",
+    delivered: "4,200+ reviews delivered",
+    Logo: () => (
+      <svg viewBox="0 0 200 48" className="h-9 sm:h-10" aria-hidden="true">
+        <circle cx="22" cy="24" r="18" fill="#0E5CDD" />
+        <text x="22" y="30" textAnchor="middle" fontSize="18" fontWeight="800" fontFamily="Arial, Helvetica, sans-serif" fill="#fff">
+          RR
+        </text>
+        <text x="50" y="32" fontSize="22" fontWeight="700" fontFamily="Arial, Helvetica, sans-serif" fill="#fff" letterSpacing="-0.5">
+          Reviews.io
+        </text>
+      </svg>
+    ),
+  },
+  {
+    id: "google",
+    name: "Google Business",
+    color: "#4285F4",
+    delivered: "4,800+ reviews delivered",
+    Logo: () => (
+      <svg viewBox="0 0 220 48" className="h-9 sm:h-10" aria-hidden="true">
+        <g transform="translate(4 6)">
+          <path fill="#4285F4" d="M35.6 18.4c0-1.3-.1-2.5-.3-3.7H18.2v7h9.8c-.4 2.3-1.7 4.2-3.6 5.5v4.6h5.8c3.4-3.1 5.4-7.7 5.4-13.4z" />
+          <path fill="#34A853" d="M18.2 36c4.9 0 8.9-1.6 11.9-4.4l-5.8-4.6c-1.6 1.1-3.7 1.7-6.1 1.7-4.7 0-8.7-3.2-10.1-7.4H1.9v4.7C4.9 31.7 11 36 18.2 36z" />
+          <path fill="#FBBC05" d="M8.1 21.4c-.4-1.1-.6-2.2-.6-3.4s.2-2.3.6-3.4V9.9H1.9C.7 12.4 0 15.1 0 18s.7 5.6 1.9 8.1l6.2-4.7z" />
+          <path fill="#EA4335" d="M18.2 7.2c2.7 0 5.1.9 7 2.7l5.2-5.2C27.1 1.7 23.1 0 18.2 0 11 0 4.9 4.3 1.9 10.6l6.2 4.7c1.4-4.2 5.4-7.4 10.1-7.4z" />
+        </g>
+        <text x="48" y="32" fontSize="22" fontWeight="700" fontFamily="Arial, Helvetica, sans-serif" fill="#fff" letterSpacing="-0.5">
+          Google Business
+        </text>
+      </svg>
+    ),
+  },
+];
+
+function PlatformCarousel() {
+  const [active, setActive] = useState(0);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+    const id = window.setInterval(() => {
+      setActive((i) => (i + 1) % PLATFORMS.length);
+    }, 3000);
+    return () => window.clearInterval(id);
+  }, []);
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started.current) {
-          started.current = true;
-          const start = performance.now();
-          const animate = (now: number) => {
-            const progress = Math.min((now - start) / duration, 1);
-            const ease = 1 - Math.pow(1 - progress, 3);
-            setValue(parseFloat((target * ease).toFixed(1)));
-            if (progress < 1) requestAnimationFrame(animate);
-          };
-          requestAnimationFrame(animate);
-        }
-      },
-      { threshold: 0.5 }
-    );
+  return (
+    <div className="flex flex-col items-center gap-4 w-full px-6 text-center">
+      <span className="text-sm text-text-muted uppercase tracking-[0.2em]">
+        Reviewers for
+      </span>
 
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [target, duration]);
+      <div className="relative h-12 w-full flex items-center justify-center">
+        {PLATFORMS.map((p, i) => (
+          <div
+            key={p.id}
+            className="absolute inset-0 flex items-center justify-center transition-opacity duration-700 ease-in-out"
+            style={{ opacity: i === active ? 1 : 0 }}
+            aria-hidden={i !== active}
+          >
+            <p.Logo />
+          </div>
+        ))}
+      </div>
 
-  return <span ref={ref}>{value}</span>;
+      <div className="relative h-6 w-full">
+        {PLATFORMS.map((p, i) => (
+          <span
+            key={p.id}
+            className="absolute inset-0 flex items-center justify-center text-sm font-semibold transition-opacity duration-700 ease-in-out"
+            style={{ opacity: i === active ? 1 : 0, color: p.color }}
+          >
+            {p.delivered}
+          </span>
+        ))}
+      </div>
+
+      <div className="flex gap-1 mt-1">
+        {[...Array(5)].map((_, i) => (
+          <svg key={i} width="22" height="22" viewBox="0 0 24 24" fill="var(--star)">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+          </svg>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 export function Hero() {
-  const { t } = useLang();
   const stampRef = useRef<HTMLDivElement>(null);
 
   const handleStampMove = (e: MouseEvent<HTMLDivElement>) => {
     const el = stampRef.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
-    const x = (e.clientX - rect.left - rect.width / 2) / 15;
-    const y = -(e.clientY - rect.top - rect.height / 2) / 15;
+    const x = (e.clientX - rect.left - rect.width / 2) / 25;
+    const y = -(e.clientY - rect.top - rect.height / 2) / 25;
     el.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
   };
 
@@ -83,8 +153,10 @@ export function Hero() {
 
           <p className="text-text-secondary text-lg max-w-xl leading-relaxed">
             Systematic reputation management on{" "}
-            <span className="text-accent font-semibold">Reviews.io</span>.
-            {" "}High ratings drive sales. White label. Moderation guarantee.
+            <span style={{ color: "#00B67A" }} className="font-semibold">Trustpilot</span>,{" "}
+            <span style={{ color: "#0E5CDD" }} className="font-semibold">Reviews.io</span> and{" "}
+            <span style={{ color: "#4285F4" }} className="font-semibold">Google Business</span>.
+            {" "}We provide a steady flow of authentic reviews. Higher ratings drive more sales. White label. Moderation guarantee.
           </p>
 
           <ul className="flex flex-col gap-3 text-text-secondary">
@@ -113,34 +185,7 @@ export function Hero() {
             <div ref={stampRef} className="stamp-3d-inner relative">
               <div className="absolute inset-[-12px] rounded-full" style={{ animation: "glow-pulse 3s ease-in-out infinite" }} />
               <div className="stamp-circle gradient-border-round">
-                <span className="text-5xl sm:text-6xl font-heading gradient-text">
-                  <AnimatedCounter target={4.8} duration={2500} />
-                  <span className="text-3xl sm:text-4xl">+</span>
-                </span>
-                <div className="flex gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <svg key={i} width="20" height="20" viewBox="0 0 24 24" fill="var(--star)">
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                    </svg>
-                  ))}
-                </div>
-                <span className="text-sm text-success font-semibold uppercase tracking-wider">{t.hero.verified}</span>
-              </div>
-              <div className="floating-tag absolute -top-2 -right-10" style={{ animation: "float-gentle 4s ease-in-out infinite" }}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--success)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg>
-                <span className="font-semibold">3.7x More Sales</span>
-              </div>
-              <div className="floating-tag absolute -top-2 -left-10" style={{ animation: "float-gentle 5s ease-in-out infinite 0.5s" }}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
-                <span className="font-semibold">White Label</span>
-              </div>
-              <div className="floating-tag absolute -bottom-2 -right-8" style={{ animation: "float-gentle 6s ease-in-out infinite 1s" }}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--success)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
-                <span className="font-semibold">Moderation Pass</span>
-              </div>
-              <div className="floating-tag absolute -bottom-2 -left-12" style={{ animation: "float-gentle 5.5s ease-in-out infinite 1.5s" }}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--star)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-                <span className="font-semibold">Google Star Ratings</span>
+                <PlatformCarousel />
               </div>
             </div>
           </div>
