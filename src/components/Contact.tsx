@@ -60,7 +60,7 @@ export function Contact() {
           <p className="text-text-secondary text-lg">
             Share your website and email. We&apos;ll reply with a plan to boost your social proof.
             <br className="hidden sm:block" />
-            {" "}No Reviews.io profile? We&apos;ll help set it up.
+            {" "}No profile yet? We&apos;ll help set it up.
           </p>
         </div>
 
@@ -123,14 +123,14 @@ export function Contact() {
 
                 <div>
                   <label htmlFor="reviews-profile" className="text-sm text-text-secondary mb-1.5 block">
-                    Reviews.io profile <span className="text-text-muted">(optional)</span>
+                    Trustpilot, Reviews.io or Google Business link <span className="text-text-muted">(optional)</span>
                   </label>
                   <input
                     id="reviews-profile"
                     name="reviews-profile"
                     type="text"
                     className="w-full px-4 py-3 rounded-xl bg-[#1a1a2e] border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition-all"
-                    placeholder="https://reviews.io/company-reviews/..."
+                    placeholder="Paste your profile URL from any platform"
                   />
                 </div>
 

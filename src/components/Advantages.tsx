@@ -5,7 +5,7 @@ import { SpotlightCard } from "./SpotlightCard";
 const ITEMS = [
   {
     title: "Moderation Intelligence",
-    desc: "We know Reviews.io inside out. Every review passes all filters — device uniqueness, IP, behavioral metrics — while sounding 100% natural. No farms. No footprints.",
+    desc: "We know Trustpilot, Reviews.io, and Google Business inside out. Every review passes all filters — device uniqueness, IP, behavioral metrics — while sounding 100% natural. No farms. No footprints.",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="11" cy="11" r="8" />
@@ -15,7 +15,7 @@ const ITEMS = [
   },
   {
     title: "Data Purity",
-    desc: "No shared proxies, no bots. Every review comes from a unique session, unique device, and unique behavioral pattern. Clean data that platforms trust.",
+    desc: "No shared proxies, no bots. Every review comes from a unique session, unique device, and unique behavioral pattern — written by real reviewers. Clean data that platforms trust.",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--success)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
