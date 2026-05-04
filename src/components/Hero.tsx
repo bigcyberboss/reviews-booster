@@ -24,15 +24,8 @@ const PLATFORMS = [
     color: "#0E5CDD",
     delivered: "4,200+ reviews delivered",
     Logo: () => (
-      <svg viewBox="0 0 200 48" className="h-9 sm:h-10" aria-hidden="true">
-        <circle cx="22" cy="24" r="18" fill="#0E5CDD" />
-        <text x="22" y="30" textAnchor="middle" fontSize="18" fontWeight="800" fontFamily="Arial, Helvetica, sans-serif" fill="#fff">
-          RR
-        </text>
-        <text x="50" y="32" fontSize="22" fontWeight="700" fontFamily="Arial, Helvetica, sans-serif" fill="#fff" letterSpacing="-0.5">
-          Reviews.io
-        </text>
-      </svg>
+      // eslint-disable-next-line @next/next/no-img-element
+      <img src="/reviewsio-logo.svg" alt="REVIEWS.io" className="h-9 sm:h-10 w-auto" />
     ),
   },
   {

@@ -10,13 +10,6 @@ const CHECK = (
   </svg>
 );
 
-const PLUS = (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
-    <line x1="12" y1="5" x2="12" y2="19" />
-    <line x1="5" y1="12" x2="19" y2="12" />
-  </svg>
-);
-
 const MINI_CHECK = (
   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--success)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
     <polyline points="20 6 9 17 4 12" />
@@ -63,8 +56,10 @@ type Plan = {
   price: number;
   desc: string;
   popular: boolean;
-  features: { icon: "check" | "plus"; text: string; tooltip?: string[] }[];
+  features: { icon: "check"; text: string; tooltip?: string[] }[];
 };
+
+const GEO_TOOLTIP = ["You pick any country. We handle the rest"];
 
 const SHARED_PLANS = (start: number, balance: number, maximum: number): Plan[] => [
   {
@@ -73,11 +68,8 @@ const SHARED_PLANS = (start: number, balance: number, maximum: number): Plan[] =
     desc: "from 10 reviews",
     popular: false,
     features: [
-      { icon: "check", text: "Reviews Geo: 1 country", tooltip: ["Right geo = ⭐ stars in your ads", "Contact us for geo recommendations"] },
+      { icon: "check", text: "Reviews Geo: any country", tooltip: GEO_TOOLTIP },
       { icon: "check", text: "Launch within 48 hours" },
-      { icon: "check", text: "100% White Label" },
-      { icon: "check", text: "Unique IPs and devices" },
-      { icon: "check", text: "Text approval" },
     ],
   },
   {
@@ -86,11 +78,8 @@ const SHARED_PLANS = (start: number, balance: number, maximum: number): Plan[] =
     desc: "from 100 reviews / month",
     popular: true,
     features: [
-      { icon: "plus", text: "All Start features included", tooltip: ["Launch within 48 hours", "100% White Label", "Unique IPs and devices", "Text approval"] },
-      { icon: "check", text: "Reviews Geo: up to 3 countries", tooltip: ["Right geo = ⭐ stars in your ads", "Contact us for geo recommendations"] },
-      { icon: "check", text: "Monthly strategy report" },
-      { icon: "check", text: "Priority approval" },
-      { icon: "check", text: "Moderation guarantee" },
+      { icon: "check", text: "Reviews Geo: any country", tooltip: GEO_TOOLTIP },
+      { icon: "check", text: "Monthly Report" },
     ],
   },
   {
@@ -99,11 +88,8 @@ const SHARED_PLANS = (start: number, balance: number, maximum: number): Plan[] =
     desc: "from 200 reviews / month",
     popular: false,
     features: [
-      { icon: "plus", text: "All Start + Balance features included", tooltip: ["Launch within 48 hours", "100% White Label", "Unique IPs and devices", "Text approval", "Monthly strategy report", "Priority approval", "Moderation guarantee"] },
-      { icon: "check", text: "Reviews Geo: any country", tooltip: ["Right geo = ⭐ stars in your ads", "Contact us for geo recommendations"] },
-      { icon: "check", text: "Dedicated account manager" },
+      { icon: "check", text: "Reviews Geo: any country", tooltip: GEO_TOOLTIP },
       { icon: "check", text: "Priority 24/7 support" },
-      { icon: "check", text: "Quarterly strategy review" },
     ],
   },
 ];
@@ -115,10 +101,8 @@ const TrustpilotMark = () => (
 );
 
 const ReviewsIoMark = () => (
-  <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-    <circle cx="12" cy="12" r="10" fill="#0E5CDD" />
-    <text x="12" y="16" textAnchor="middle" fontSize="11" fontWeight="800" fontFamily="Arial, sans-serif" fill="#fff">RR</text>
-  </svg>
+  // eslint-disable-next-line @next/next/no-img-element
+  <img src="/reviewsio-mark.svg" alt="" width={26} height={26} aria-hidden="true" />
 );
 
 const GoogleMark = () => (
@@ -176,7 +160,7 @@ function PlanCard({ plan, accent }: { plan: Plan; accent: string }) {
       <ul className="flex flex-col gap-3 flex-1">
         {plan.features.map((f, fi) => (
           <li key={fi} className="flex items-center gap-3 text-text-secondary">
-            {f.icon === "plus" ? PLUS : CHECK}
+            {CHECK}
             <span className="flex items-center">
               {f.text}
               {f.tooltip && <Tooltip items={f.tooltip} />}
