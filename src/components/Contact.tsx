@@ -156,7 +156,11 @@ export function Contact() {
                 )}
 
                 <p className="text-text-muted text-xs text-center">
-                  No spam. We&apos;ll reach out within 24 hours.
+                  No spam. We&apos;ll reach out within 24 hours. By sending this request you agree to our{" "}
+                  <a href="/privacy-policy" className="underline hover:text-text-secondary">
+                    Privacy Policy
+                  </a>
+                  .
                 </p>
               </form>
             )}
